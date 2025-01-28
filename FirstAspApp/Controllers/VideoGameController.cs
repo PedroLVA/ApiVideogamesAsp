@@ -19,9 +19,20 @@ namespace FirstAspApp.Controllers
 
 
         [HttpGet]
-        public ActionResult<List<VideoGame>> GetVideoGames()
+        public ActionResult<List<VideoGame>> GetVideoGames()    
         {
             return Ok(videoGames);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<VideoGame> GetVideoGame(int id)
+        {
+            var videoGame = videoGames.FirstOrDefault(vg => vg.Id == id);
+            if (videoGame == null)
+            {
+                return NotFound();
+            }
+            return Ok(videoGame);
         }
     }
 }
