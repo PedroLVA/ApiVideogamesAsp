@@ -48,5 +48,22 @@ namespace FirstAspApp.Controllers
 
         }
 
+        [HttpPut("{id}")]
+        public IActionResult updateVideoGame(int id, VideoGame updatedVideoGame)    
+        {
+            var videoGame = videoGames.FirstOrDefault(vg => vg.Id == id);
+            if (videoGame == null)
+            {
+                return NotFound();
+            }
+
+            videoGame.Title = updatedVideoGame.Title;
+            videoGame.Platform = updatedVideoGame.Platform;
+            videoGame.Developer = updatedVideoGame.Developer;
+            videoGame.Publisher = updatedVideoGame.Publisher;
+
+            return NoContent();
+        }
+
     }
 }
