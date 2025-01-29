@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FirstAspApp.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Controllers
 {
@@ -8,21 +10,23 @@ namespace FirstAspApp.Controllers
     public class VideoGameController : ControllerBase
     {
 
-        private static readonly List<VideoGame> videoGames = new()
+        private readonly VideoGameDbContext _context;
+
+        public VideoGameController(VideoGameDbContext context)
         {
-           
-        };
+            _context = context;
+        }
 
         [HttpGet]
-        public ActionResult<List<VideoGame>> GetVideoGames()
+        public async Task<ActionResult<List<VideoGame>>> GetVideoGames()
         {
-            return Ok(videoGames);
+            return Ok(await _context.VideoGames.ToListAsync());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<VideoGame> GetVideoGame(int id)
+        public async Task<ActionResult<VideoGame>> GetVideoGame(int id)
         {
-            var videoGame = videoGames.FirstOrDefault(vg => vg.Id == id);
+            var videoGame = await _context.VideoGames.FindAsync(id);
             if (videoGame == null)
             {
                 return NotFound();
@@ -31,23 +35,24 @@ namespace FirstAspApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult<VideoGame> CreateVideoGame(VideoGame newVideoGame)
+        public async Task<ActionResult<VideoGame>> CreateVideoGame(VideoGame newVideoGame)
         {
             if (newVideoGame == null)
             {
                 return BadRequest();
             }
 
-            newVideoGame.Id = videoGames.Max(vg => vg.Id) + 1; //set up id manually because we dont have a database yet
-            videoGames.Add(newVideoGame);
+            _context.VideoGames.Add(newVideoGame);
+            await _context.SaveChangesAsync();
+
             return CreatedAtAction(nameof(GetVideoGame), new { id = newVideoGame.Id }, newVideoGame); //Didnt understand what's happening here
 
         }
 
         [HttpPut("{id}")]
-        public IActionResult updateVideoGame(int id, VideoGame updatedVideoGame)    
+        public async Task<IActionResult> updateVideoGame(int id, VideoGame updatedVideoGame)    
         {
-            var videoGame = videoGames.FirstOrDefault(vg => vg.Id == id);
+            var videoGame = await _context.VideoGames.FindAsync(id);
             if (videoGame == null)
             {
                 return NotFound();
@@ -58,18 +63,22 @@ namespace FirstAspApp.Controllers
             videoGame.Developer = updatedVideoGame.Developer;
             videoGame.Publisher = updatedVideoGame.Publisher;
 
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteVideoGame(int id)
+        public async  Task<IActionResult> DeleteVideoGame(int id)
         {
-            var videoGame = videoGames.FirstOrDefault(vg => vg.Id == id);
+            var videoGame = await _context.VideoGames.FindAsync(id);
             if (videoGame == null)
             {
                 return NotFound();
             }
-            videoGames.Remove(videoGame);
+            _context.VideoGames.Remove(videoGame);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
