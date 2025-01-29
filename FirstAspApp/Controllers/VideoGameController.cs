@@ -17,9 +17,8 @@ namespace FirstAspApp.Controllers
             new VideoGame { Id = 5, Title = "Red Dead Redemption 2", Platform = "PlayStation, Xbox, PC", Developer = "Rockstar Games", Publisher = "Rockstar Games" }
         };
 
-
         [HttpGet]
-        public ActionResult<List<VideoGame>> GetVideoGames()    
+        public ActionResult<List<VideoGame>> GetVideoGames()
         {
             return Ok(videoGames);
         }
@@ -34,5 +33,20 @@ namespace FirstAspApp.Controllers
             }
             return Ok(videoGame);
         }
+
+        [HttpPost]
+        public ActionResult<VideoGame> CreateVideoGame(VideoGame newVideoGame)
+        {
+            if (newVideoGame == null)
+            {
+                return BadRequest();
+            }
+
+            newVideoGame.Id = videoGames.Max(vg => vg.Id) + 1; //set up id manually because we dont have a database yet
+            videoGames.Add(newVideoGame);
+            return CreatedAtAction(nameof(GetVideoGame), new { id = newVideoGame.Id }, newVideoGame); //Didnt understand what's happening here
+
+        }
+
     }
 }
