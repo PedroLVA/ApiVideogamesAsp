@@ -65,5 +65,17 @@ namespace FirstAspApp.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteVideoGame(int id)
+        {
+            var videoGame = videoGames.FirstOrDefault(vg => vg.Id == id);
+            if (videoGame == null)
+            {
+                return NotFound();
+            }
+            videoGames.Remove(videoGame);
+            return NoContent();
+        }
+
     }
 }
