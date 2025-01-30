@@ -1,4 +1,6 @@
-﻿namespace FirstAspApp
+﻿using FirstAspApp.Models;
+
+namespace FirstAspApp
 {
     public class VideoGame
     {
@@ -7,6 +9,8 @@
         public string? Platform { get; set; }
         public string? Developer { get; set; }
         public string? Publisher { get; set; }
+
+        public VideoGameDetails? VideoGameDetails { get; set; }
 
     }
 }
