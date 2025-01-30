@@ -20,7 +20,9 @@ namespace FirstAspApp.Controllers
         [HttpGet]
         public async Task<ActionResult<List<VideoGame>>> GetVideoGames()
         {
-            return Ok(await _context.VideoGames.ToListAsync());
+            return Ok(await _context.VideoGames
+                .Include(vg => vg.VideoGameDetails)
+                .ToListAsync());
         }
 
         [HttpGet("{id}")]
