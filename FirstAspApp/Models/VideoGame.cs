@@ -1,6 +1,4 @@
-﻿using FirstAspApp.Models;
-
-namespace FirstAspApp
+﻿namespace FirstAspApp.Models
 {
     public class VideoGame
     {
