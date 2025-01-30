@@ -12,5 +12,7 @@
 
         public VideoGameDetails? VideoGameDetails { get; set; }
 
+        public List<Genre>? Genres { get; set; }
+
     }
 }

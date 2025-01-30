@@ -25,6 +25,7 @@ namespace FirstAspApp.Controllers
                 .Include(vg => vg.VideoGameDetails)
                 .Include(vg => vg.Publisher)
                 .Include(vg => vg.Developer)
+                .Include(vg => vg.Genres)
                 .ToListAsync());
         }
 
