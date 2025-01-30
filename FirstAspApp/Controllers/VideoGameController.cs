@@ -23,6 +23,8 @@ namespace FirstAspApp.Controllers
         {
             return Ok(await _context.VideoGames
                 .Include(vg => vg.VideoGameDetails)
+                .Include(vg => vg.Publisher)
+                .Include(vg => vg.Developer)
                 .ToListAsync());
         }
 
