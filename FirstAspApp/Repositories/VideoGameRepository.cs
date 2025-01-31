@@ -36,9 +36,16 @@ namespace FirstAspApp.Repositories
                 .ToListAsync();
         }
 
-        public Task<VideoGame> GetVideoGameById(int id)
+        public async Task<VideoGame> GetVideoGameById(int id)
         {
-            throw new NotImplementedException();
+            var VideoGame = await _context.VideoGames
+               .Include(vg => vg.VideoGameDetails)
+               .Include(vg => vg.Publisher)
+               .Include(vg => vg.Developer)
+               .Include(vg => vg.Genres)
+               .FirstOrDefaultAsync(vg => vg.Id == id);
+
+            return VideoGame;
         }
 
         public Task UpdateVideoGame(VideoGame videoGame)

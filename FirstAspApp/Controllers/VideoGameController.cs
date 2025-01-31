@@ -29,19 +29,17 @@ namespace FirstAspApp.Controllers
             return Ok(videoGames);
         }
 
-            [HttpGet("{id}")]
-            public async Task<ActionResult<VideoGame>> GetVideoGame(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<VideoGame>> GetVideoGame(int id)
+        {
+            var videoGame = await _videoGameRepository.GetVideoGameById(id);
+
+            if (videoGame == null)
             {
-                var videoGame = await _context.VideoGames.Include(vg => vg.VideoGameDetails)
-                .Include(vg => vg.Publisher)
-                .Include(vg => vg.Developer)
-                .Include(vg => vg.Genres).FirstOrDefaultAsync(vg => vg.Id == id);
-                if (videoGame == null)
-                {
-                    return NotFound();
-                }
-                return Ok(videoGame);
+                return NotFound();
             }
+            return Ok(videoGame);
+        }
 
         [HttpPost]
         public async Task<ActionResult<VideoGame>> CreateVideoGame(VideoGame newVideoGame)
