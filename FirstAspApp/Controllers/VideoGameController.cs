@@ -44,13 +44,7 @@ namespace FirstAspApp.Controllers
         [HttpPost]
         public async Task<ActionResult<VideoGame>> CreateVideoGame(VideoGame newVideoGame)
         {
-            if (newVideoGame == null)
-            {
-                return BadRequest();
-            }
-
-            _context.VideoGames.Add(newVideoGame);
-            await _context.SaveChangesAsync();
+           var videoGame = await _videoGameRepository.AddVideoGame(newVideoGame);
 
             return CreatedAtAction(nameof(GetVideoGame), new { id = newVideoGame.Id }, newVideoGame); //Didnt understand what's happening here
 

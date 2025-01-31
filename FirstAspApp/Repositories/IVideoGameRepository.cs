@@ -6,9 +6,9 @@ namespace FirstAspApp.Repositories
     {
         Task<List<VideoGame>> GetAllVideoGames();
 
-        Task<VideoGame> GetVideoGameById(int id);
+        Task<VideoGame?> GetVideoGameById(int id);
 
-        Task AddVideoGame(VideoGame videoGame);
+        Task<VideoGame> AddVideoGame(VideoGame videoGame);
 
         Task UpdateVideoGame(VideoGame videoGame);
 

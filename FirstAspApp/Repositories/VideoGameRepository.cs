@@ -16,9 +16,14 @@ namespace FirstAspApp.Repositories
         }
 
 
-        public Task AddVideoGame(VideoGame videoGame)
+        public async Task<VideoGame> AddVideoGame(VideoGame videoGame)
         {
-            throw new NotImplementedException();
+
+            _context.VideoGames.Add(videoGame);
+            await _context.SaveChangesAsync();
+
+            return videoGame;
+
         }
 
         public Task DeleteVideoGame(int id)
@@ -36,7 +41,7 @@ namespace FirstAspApp.Repositories
                 .ToListAsync();
         }
 
-        public async Task<VideoGame> GetVideoGameById(int id)
+        public async Task<VideoGame?> GetVideoGameById(int id)
         {
             var VideoGame = await _context.VideoGames
                .Include(vg => vg.VideoGameDetails)
@@ -48,7 +53,7 @@ namespace FirstAspApp.Repositories
             return VideoGame;
         }
 
-        public Task UpdateVideoGame(VideoGame videoGame)
+        public async Task UpdateVideoGame(VideoGame videoGame)
         {
             throw new NotImplementedException();
         }
