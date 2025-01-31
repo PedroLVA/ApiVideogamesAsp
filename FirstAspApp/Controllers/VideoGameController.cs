@@ -50,27 +50,16 @@ namespace FirstAspApp.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> updateVideoGame(int id, VideoGame updatedVideoGame)    
+        [HttpPut]
+        public async Task<IActionResult> updateVideoGame(VideoGame updatedVideoGame)    
         {
-            var videoGame = await _context.VideoGames.FindAsync(id);
-            if (videoGame == null)
-            {
-                return NotFound();
-            }
-
-            videoGame.Title = updatedVideoGame.Title;
-            videoGame.Platform = updatedVideoGame.Platform;
-            videoGame.Developer = updatedVideoGame.Developer;
-            videoGame.Publisher = updatedVideoGame.Publisher;
-
-            await _context.SaveChangesAsync();
+            await _videoGameRepository.UpdateVideoGame(updatedVideoGame);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async  Task<IActionResult> DeleteVideoGame(int id)
+        public async Task<IActionResult> DeleteVideoGame(int id)
         {
             var videoGame = await _context.VideoGames.FindAsync(id);
             if (videoGame == null)

@@ -1,5 +1,6 @@
 ﻿using FirstAspApp.Data;
 using FirstAspApp.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Repositories
@@ -55,7 +56,21 @@ namespace FirstAspApp.Repositories
 
         public async Task UpdateVideoGame(VideoGame videoGame)
         {
-            throw new NotImplementedException();
+            var VideoGameToUpdate = await _context.VideoGames.FindAsync(videoGame.Id);
+            if(VideoGameToUpdate == null)
+            {
+                throw new Exception("Character not found");
+            }
+
+            VideoGameToUpdate.Title = videoGame.Title;
+            VideoGameToUpdate.Platform = videoGame.Platform;
+            VideoGameToUpdate.DeveloperId = videoGame.DeveloperId;
+            VideoGameToUpdate.PublisherId = videoGame.PublisherId;
+
+            await _context.SaveChangesAsync();
+
+            return;
         }
+
     }
 }
