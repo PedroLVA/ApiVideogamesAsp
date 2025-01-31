@@ -4,15 +4,15 @@ namespace FirstAspApp.Repositories
 {
     public interface IVideoGameRepository
     {
-        List<VideoGame> GetAllVideoGames();
+        Task<List<VideoGame>> GetAllVideoGames();
 
-        VideoGame GetVideoGameById(int id);
+        Task<VideoGame> GetVideoGameById(int id);
 
-        void AddVideoGame(VideoGame videoGame);
+        Task AddVideoGame(VideoGame videoGame);
 
-        void UpdateVideoGame(VideoGame videoGame);
+        Task UpdateVideoGame(VideoGame videoGame);
 
-        void DeleteVideoGame(int id);
+        Task DeleteVideoGame(int id);
 
 
     }

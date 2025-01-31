@@ -1,7 +1,9 @@
 ﻿using FirstAspApp.Data;
 using FirstAspApp.Models;
+using FirstAspApp.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Controllers
@@ -12,21 +14,19 @@ namespace FirstAspApp.Controllers
     {
 
         private readonly VideoGameDbContext _context;
+        private readonly IVideoGameRepository _videoGameRepository;
 
-        public VideoGameController(VideoGameDbContext context)
+        public VideoGameController(VideoGameDbContext context, IVideoGameRepository videoGameRepository)
         {
+            _videoGameRepository = videoGameRepository;
             _context = context;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<VideoGame>>> GetVideoGames()
         {
-            return Ok(await _context.VideoGames
-                .Include(vg => vg.VideoGameDetails)
-                .Include(vg => vg.Publisher)
-                .Include(vg => vg.Developer)
-                .Include(vg => vg.Genres)
-                .ToListAsync());
+            var videoGames = await _videoGameRepository.GetAllVideoGames();
+            return Ok(videoGames);
         }
 
             [HttpGet("{id}")]
