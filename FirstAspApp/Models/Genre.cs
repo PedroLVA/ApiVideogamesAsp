@@ -10,7 +10,5 @@ namespace FirstAspApp.Models
         [JsonIgnore]
         public List<VideoGame>? ListOfVideogames { get; set; }
 
-
-
     }
 }
