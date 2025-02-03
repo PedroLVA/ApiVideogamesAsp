@@ -24,10 +24,18 @@ namespace FirstAspApp.Controllers
             return Ok(genres);
 
         }
-        
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Genre>> getGenre(int id)
+        {
+            var foundGenre = await _genreRepository.GetGenreById(id);
 
+            if (foundGenre == null) {
+                return NotFound();
+            }
 
+            return Ok(foundGenre);
+        }
 
     }
 }
