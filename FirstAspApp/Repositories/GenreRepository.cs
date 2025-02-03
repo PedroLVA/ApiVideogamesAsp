@@ -24,6 +24,10 @@ namespace FirstAspApp.Repositories
         public async Task DeleteGenre(int id)
         {
             var genre = await _context.Genre.FindAsync(id);
+            if (genre == null)
+            {
+                throw new Exception("Genre not found");
+            }
             _context.Genre.Remove(genre);
             await _context.SaveChangesAsync();
             return;
