@@ -1,6 +1,8 @@
 ﻿using FirstAspApp.Data;
+using FirstAspApp.DTOs.VideoGameDTOs;
 using FirstAspApp.Models;
 using FirstAspApp.Repositories;
+using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
@@ -23,11 +25,15 @@ namespace FirstAspApp.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<VideoGame>>> GetVideoGames()
+        public async Task<ActionResult<List<VideoGameGetResponseDTO>>> GetVideoGames()
         {
             var videoGames = await _videoGameRepository.GetAllVideoGames();
-            return Ok(videoGames);
+
+            var videoGameDTOs = videoGames.Select(vg => new VideoGameGetResponseDTO(vg)).ToList();
+
+            return Ok(videoGameDTOs);
         }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<VideoGame>> GetVideoGame(int id)
@@ -38,7 +44,10 @@ namespace FirstAspApp.Controllers
             {
                 return NotFound();
             }
-            return Ok(videoGame);
+
+            VideoGameGetResponseDTO videoGameDTO = new VideoGameGetResponseDTO(videoGame);
+
+            return Ok(videoGameDTO);
         }
 
         [HttpPost]
