@@ -15,7 +15,7 @@ namespace FirstAspApp.Controllers
     
         private readonly IVideoGameRepository _videoGameRepository;
 
-        public VideoGameController(VideoGameDbContext context, IVideoGameRepository videoGameRepository)
+        public VideoGameController(IVideoGameRepository videoGameRepository)
         {
             _videoGameRepository = videoGameRepository;
         }
