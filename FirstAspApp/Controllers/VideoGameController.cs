@@ -58,16 +58,12 @@ namespace FirstAspApp.Controllers
             return NoContent();
         }
 
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVideoGame(int id)
         {
-            var videoGame = await _context.VideoGames.FindAsync(id);
-            if (videoGame == null)
-            {
-                return NotFound();
-            }
-            _context.VideoGames.Remove(videoGame);
-            await _context.SaveChangesAsync();
+
+            await _videoGameRepository.DeleteVideoGame(id);
 
             return NoContent();
         }

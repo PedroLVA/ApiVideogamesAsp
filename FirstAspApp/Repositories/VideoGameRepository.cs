@@ -1,5 +1,6 @@
 ﻿using FirstAspApp.Data;
 using FirstAspApp.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,9 +28,20 @@ namespace FirstAspApp.Repositories
 
         }
 
-        public Task DeleteVideoGame(int id)
+        public async Task DeleteVideoGame(int id)
         {
-            throw new NotImplementedException();
+            var videoGame = await _context.VideoGames.FindAsync(id);
+
+            if(videoGame == null)
+            {
+                throw new Exception("VideoGame not found");
+            }
+            _context.VideoGames.Remove(videoGame);
+            await _context.SaveChangesAsync();
+
+            return;
+
+
         }
 
         public async Task<List<VideoGame>> GetAllVideoGames()
@@ -59,7 +71,7 @@ namespace FirstAspApp.Repositories
             var VideoGameToUpdate = await _context.VideoGames.FindAsync(videoGame.Id);
             if(VideoGameToUpdate == null)
             {
-                throw new Exception("Character not found");
+                throw new Exception("VideoGame not found");
             }
 
             VideoGameToUpdate.Title = videoGame.Title;
