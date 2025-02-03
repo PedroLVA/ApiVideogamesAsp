@@ -63,6 +63,13 @@ namespace FirstAspApp.Controllers
         public async Task<IActionResult> DeleteVideoGame(int id)
         {
 
+            var foundVideoGame = await _videoGameRepository.GetVideoGameById(id);
+
+            if(foundVideoGame == null)
+            {
+                return NotFound();
+            }
+
             await _videoGameRepository.DeleteVideoGame(id);
 
             return NoContent();

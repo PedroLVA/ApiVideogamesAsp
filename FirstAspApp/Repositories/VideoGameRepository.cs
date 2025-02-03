@@ -32,10 +32,6 @@ namespace FirstAspApp.Repositories
         {
             var videoGame = await _context.VideoGames.FindAsync(id);
 
-            if(videoGame == null)
-            {
-                throw new Exception("VideoGame not found");
-            }
             _context.VideoGames.Remove(videoGame);
             await _context.SaveChangesAsync();
 
