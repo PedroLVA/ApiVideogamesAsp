@@ -2,11 +2,8 @@
 using FirstAspApp.DTOs.VideoGameDTOs;
 using FirstAspApp.Models;
 using FirstAspApp.Repositories;
-using Mapster;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace FirstAspApp.Controllers
 {
@@ -15,13 +12,12 @@ namespace FirstAspApp.Controllers
     public class VideoGameController : ControllerBase
     {
 
-        private readonly VideoGameDbContext _context;
+    
         private readonly IVideoGameRepository _videoGameRepository;
 
         public VideoGameController(VideoGameDbContext context, IVideoGameRepository videoGameRepository)
         {
             _videoGameRepository = videoGameRepository;
-            _context = context;
         }
 
         [HttpGet]
