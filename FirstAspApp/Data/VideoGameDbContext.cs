@@ -7,7 +7,7 @@ namespace FirstAspApp.Data
     {
         public DbSet<VideoGame> VideoGames => Set<VideoGame>();
         public DbSet<VideoGameDetails> VideoGamesDetails => Set<VideoGameDetails>();
-        public DbSet<Genre> Genres => Set<Genre>();
+        public DbSet<Genre> Genre => Set<Genre>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

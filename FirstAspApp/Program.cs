@@ -15,6 +15,8 @@ builder.Services.AddDbContext<VideoGameDbContext>(options => options.UseSqlServe
 
 builder.Services.AddScoped<IVideoGameRepository, VideoGameRepository>();
 
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

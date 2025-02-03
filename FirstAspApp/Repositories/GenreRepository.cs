@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Repositories
 {
-    public class GenreRepository
+    public class GenreRepository : IGenreRepository
     {
         private readonly VideoGameDbContext _context;
 
@@ -15,7 +15,7 @@ namespace FirstAspApp.Repositories
 
         public async Task<Genre> AddGenre(Genre genre)
         {
-            _context.Genres.Add(genre);
+            _context.Genre.Add(genre);
             await _context.SaveChangesAsync();
             return genre;
         }
@@ -23,8 +23,8 @@ namespace FirstAspApp.Repositories
 
         public async Task DeleteGenre(int id)
         {
-            var genre = await _context.Genres.FindAsync(id);
-            _context.Genres.Remove(genre);
+            var genre = await _context.Genre.FindAsync(id);
+            _context.Genre.Remove(genre);
             await _context.SaveChangesAsync();
             return;
         }
@@ -32,18 +32,19 @@ namespace FirstAspApp.Repositories
 
         public async Task<List<Genre>> GetAllGenres()
         {
-            return await _context.Genres.ToListAsync();
+            return await _context.Genre.ToListAsync();
         }
 
        
-        public async Task<Genre?> getGenreById(int id)
+        public async Task<Genre?> GetGenreById(int id)
         {
-            return await _context.Genres.FindAsync(id);
+            return await _context.Genre.FindAsync(id);
         }
 
-        public async Task updateGenre(Genre newGenre)
+
+        public async Task UpdateGenre(Genre newGenre)
         {
-            var genreToBeEdited = await _context.Genres.FindAsync(newGenre.Id);
+            var genreToBeEdited = await _context.Genre.FindAsync(newGenre.Id);
 
             if(genreToBeEdited == null)
             {
@@ -59,5 +60,7 @@ namespace FirstAspApp.Repositories
 
 
         }
+
+        
     }
 }

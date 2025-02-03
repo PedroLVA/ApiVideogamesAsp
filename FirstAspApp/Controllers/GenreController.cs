@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FirstAspApp.Models;
+using FirstAspApp.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstAspApp.Controllers
@@ -8,6 +10,20 @@ namespace FirstAspApp.Controllers
     public class GenreController : ControllerBase
     {
         private readonly IGenreRepository _genreRepository; //doesnt exist yet
+
+        public GenreController(IGenreRepository genreRepository)
+        {
+            _genreRepository = genreRepository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Genre>> GetGenres()
+        {
+            var genres = await _genreRepository.GetAllGenres();
+
+            return Ok(genres);
+
+        }
         
 
 
