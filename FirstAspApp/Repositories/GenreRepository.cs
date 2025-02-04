@@ -13,6 +13,7 @@ namespace FirstAspApp.Repositories
             _context = context;
         }
 
+
         public async Task<Genre> AddGenre(Genre genre)
         {
             _context.Genre.Add(genre);
@@ -43,6 +44,12 @@ namespace FirstAspApp.Repositories
         public async Task<Genre?> GetGenreById(int id)
         {
             return await _context.Genre.FindAsync(id);
+        }
+
+
+        public async Task<Genre?> GetGenreByName(string name)
+        {
+            return await _context.Genre.FirstOrDefaultAsync(g => g.Name == name);
         }
 
 

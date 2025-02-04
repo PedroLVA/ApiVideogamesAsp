@@ -31,10 +31,32 @@ namespace FirstAspApp.Controllers
             var foundGenre = await _genreRepository.GetGenreById(id);
 
             if (foundGenre == null) {
-                return NotFound();
+                return BadRequest("Genre with that name already exists");
             }
 
             return Ok(foundGenre);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Genre>> addGenre(Genre genre)
+        {
+            if(await _genreRepository.GetGenreByName(genre.Name) != null)
+            {
+                throw new Exception("Genre with that name already exists");
+            }
+
+            var addedGenre = await _genreRepository.AddGenre(genre);
+
+            return CreatedAtAction(nameof(GetGenres), new { id = addedGenre.Id }, addedGenre);
+
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> updateGenre(Genre updatedGenre)
+        {
+            await _genreRepository.UpdateGenre(updatedGenre);
+
+            return NoContent();
         }
 
     }

@@ -13,5 +13,7 @@ namespace FirstAspApp.Repositories
         Task UpdateGenre(Genre genre);
 
         Task DeleteGenre(int id);
+
+        Task<Genre?> GetGenreByName(string name);
     }
 }
