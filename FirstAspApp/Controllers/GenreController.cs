@@ -59,5 +59,18 @@ namespace FirstAspApp.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> deleteGenre(int id)
+        {
+            var foundGenre = await _genreRepository.GetGenreById(id);
+
+            if (foundGenre == null) {
+                return NotFound();
+            }
+
+            await _genreRepository.DeleteGenre(id);
+            return NoContent();
+        }
+
     }
 }
