@@ -18,6 +18,8 @@ builder.Services.AddScoped<IVideoGameRepository, VideoGameRepository>();
 
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
+builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
