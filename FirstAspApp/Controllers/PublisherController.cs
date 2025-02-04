@@ -24,6 +24,13 @@ namespace FirstAspApp.Controllers
             return Ok(publishers);
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Publisher>> CreatePublisher(Publisher newPublisher)
+        {
+            var publisher = await _publisherRepository.AddPublisher(newPublisher);
+            return CreatedAtAction(nameof(GetAllPublishers), new { id = newPublisher.Id }, newPublisher);
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePublisher(int id)
         {

@@ -17,6 +17,8 @@ namespace FirstAspApp.Repositories
         {
             await _context.Publisher.AddAsync(publisher);
 
+            await _context.SaveChangesAsync();
+
             return publisher;
         }
 
