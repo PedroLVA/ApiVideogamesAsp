@@ -1,4 +1,5 @@
 using FirstAspApp.Data;
+using FirstAspApp.Interfaces;
 using FirstAspApp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;

@@ -1,6 +1,6 @@
 ﻿using FirstAspApp.Models;
 
-namespace FirstAspApp.Repositories
+namespace FirstAspApp.Interfaces
 {
     public interface IGenreRepository
     {

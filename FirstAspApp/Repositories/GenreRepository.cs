@@ -1,4 +1,5 @@
 ﻿using FirstAspApp.Data;
+using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,6 @@ namespace FirstAspApp.Repositories
         {
             _context = context;
         }
-
 
         public async Task<Genre> AddGenre(Genre genre)
         {

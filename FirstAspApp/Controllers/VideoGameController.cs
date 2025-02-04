@@ -1,7 +1,7 @@
 ﻿using FirstAspApp.Data;
 using FirstAspApp.DTOs.VideoGameDTOs;
+using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
-using FirstAspApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 

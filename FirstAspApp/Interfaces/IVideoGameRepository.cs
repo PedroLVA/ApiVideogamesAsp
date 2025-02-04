@@ -1,7 +1,7 @@
 ﻿using FirstAspApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FirstAspApp.Repositories
+namespace FirstAspApp.Interfaces
 {
     public interface IVideoGameRepository
     {

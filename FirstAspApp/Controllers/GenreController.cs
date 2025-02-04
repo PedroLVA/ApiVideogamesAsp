@@ -1,5 +1,5 @@
-﻿using FirstAspApp.Models;
-using FirstAspApp.Repositories;
+﻿using FirstAspApp.Interfaces;
+using FirstAspApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
