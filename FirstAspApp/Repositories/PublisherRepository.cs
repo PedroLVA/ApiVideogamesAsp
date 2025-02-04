@@ -12,27 +12,29 @@ namespace FirstAspApp.Repositories
             _context = context;
         }
 
-        public Task<Publisher> AddPublisher(Publisher publisher)
+        public async Task<Publisher> AddPublisher(Publisher publisher)
+        {
+            await _context.Publishers.AddAsync(publisher);
+
+            return publisher;
+        }
+
+        public async Task DeletePublisher(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeletePublisher(int id)
+        public async Task<List<Publisher>> GetAllPublishers()
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Publisher>> GetAllPublishers()
+        public async Task<Publisher?> GetPublisherById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Publisher?> GetPublisherById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdatePublisher(Publisher publisher)
+        public async Task UpdatePublisher(Publisher publisher)
         {
             throw new NotImplementedException();
         }
