@@ -8,7 +8,8 @@ namespace FirstAspApp.Data
         public DbSet<VideoGame> VideoGames => Set<VideoGame>();
         public DbSet<VideoGameDetails> VideoGamesDetails => Set<VideoGameDetails>();
         public DbSet<Genre> Genre => Set<Genre>();
-        public DbSet<Publisher> Publishers => Set<Publisher>();
+
+        public DbSet<Publisher> Publisher => Set<Publisher>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
