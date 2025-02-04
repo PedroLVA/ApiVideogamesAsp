@@ -24,6 +24,20 @@ namespace FirstAspApp.Controllers
             return Ok(publishers);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Publisher>> GetPublisher(int id)
+        {
+            var foundPublisher = await _publisherRepository.GetPublisherById(id);
+
+            if(foundPublisher == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(foundPublisher);
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<Publisher>> CreatePublisher(Publisher newPublisher)
         {
@@ -43,6 +57,13 @@ namespace FirstAspApp.Controllers
 
             await _publisherRepository.DeletePublisher(id);
             return Ok("Deleted publisher with Id: " + id + " sucessfully");
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdatePublisher(Publisher updatedPublisher)
+        {
+            await _publisherRepository.UpdatePublisher(updatedPublisher);
+            return Ok("Updated publisher with Id: " + updatedPublisher.Id + " sucessfully");
         }
     }
 }

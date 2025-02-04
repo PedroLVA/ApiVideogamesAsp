@@ -36,6 +36,7 @@ namespace FirstAspApp.Repositories
             return await _context.Publisher.ToListAsync();
         }
 
+
         public async Task<Publisher?> GetPublisherById(int id)
         {
             return await _context.Publisher.FindAsync(id);
@@ -43,7 +44,18 @@ namespace FirstAspApp.Repositories
 
         public async Task UpdatePublisher(Publisher publisher)
         {
-            throw new NotImplementedException();
+            var publisherToBeEdited = await _context.Publisher.FindAsync(publisher.Id);
+
+            if(publisherToBeEdited == null)
+            {
+                throw new System.Exception("Publisher not found");
+            }
+
+            publisherToBeEdited.Name = publisher.Name;
+
+            await _context.SaveChangesAsync();
+
+            return;
         }
     }
 }
