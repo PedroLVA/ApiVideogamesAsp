@@ -31,7 +31,7 @@ namespace FirstAspApp.Controllers
             var foundGenre = await _genreRepository.GetGenreById(id);
 
             if (foundGenre == null) {
-                return BadRequest("Genre with that name already exists");
+                return NotFound();
             }
 
             return Ok(foundGenre);
