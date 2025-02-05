@@ -20,14 +20,14 @@ namespace FirstAspApp.Repositories
             _context.Developer.Add(developer);
             await _context.SaveChangesAsync();
 
-          return developer;
+            return developer;
         }
 
         public async Task DeleteDeveloper(int id)
         {
             var developerToBeDeleted = await _context.Developer.FirstOrDefaultAsync(d => d.Id == id);
 
-            if(developerToBeDeleted == null)
+            if (developerToBeDeleted == null)
             {
                 throw new Exception("Developer not found");
             }
@@ -56,7 +56,7 @@ namespace FirstAspApp.Repositories
         public async Task<Developer> GetDeveloperByName(string name)
         {
             var foundDeveloper = await _context.Developer.FirstOrDefaultAsync(d => d.Name == name);
-            if(foundDeveloper == null)
+            if (foundDeveloper == null)
             {
                 throw new Exception("Developer not found");
             }
@@ -64,9 +64,18 @@ namespace FirstAspApp.Repositories
             return foundDeveloper;
         }
 
-        public Task UpdateDeveloper(Developer developer)
+        public async Task UpdateDeveloper(Developer developer)
         {
-            throw new NotImplementedException();
+            var developerToBeUpdated = await _context.Developer.FirstOrDefaultAsync(d => d.Id == developer.Id);
+            if (developerToBeUpdated == null)
+            {
+                throw new Exception("Developer not found");
+            }
+            developerToBeUpdated.Name = developer.Name;
+
+            await _context.SaveChangesAsync();
+
+            return;
         }
     }
 }
