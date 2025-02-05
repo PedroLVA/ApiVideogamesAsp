@@ -37,7 +37,9 @@ namespace FirstAspApp.Repositories
 
         public Task<Developer?> GetDeveloperById(int id)
         {
-            throw new NotImplementedException();
+            var foundDeveloper = _context.Developer.FirstOrDefaultAsync(d => d.Id == id);
+
+            return foundDeveloper;
         }
 
         public async Task<Developer> GetDeveloperByName(string name)

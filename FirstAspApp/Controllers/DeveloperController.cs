@@ -24,6 +24,13 @@ namespace FirstAspApp.Controllers
             return Ok(developers);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Developer>> GetDeveloper(int id)
+        {
+            var foundDeveloper = await _developerRepository.GetDeveloperById(id);
+            return Ok(foundDeveloper);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Developer>> AddDeveloper(Developer developer)
         {
