@@ -20,6 +20,8 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
 builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
 
+builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
