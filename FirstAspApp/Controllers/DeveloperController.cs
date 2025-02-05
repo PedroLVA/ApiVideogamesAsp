@@ -42,5 +42,12 @@ namespace FirstAspApp.Controllers
             var addedDeveloper = await _developerRepository.AddDeveloper(developer);
             return Ok(addedDeveloper);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteDeveloper(int id)
+        {
+            await _developerRepository.DeleteDeveloper(id);
+            return Ok("Deleted developer with Id " + id + " successfully!");
+        }
     }
 }

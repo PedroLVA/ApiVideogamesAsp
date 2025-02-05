@@ -23,9 +23,20 @@ namespace FirstAspApp.Repositories
           return developer;
         }
 
-        public Task DeleteDeveloper(int id)
+        public async Task DeleteDeveloper(int id)
         {
-            throw new NotImplementedException();
+            var developerToBeDeleted = await _context.Developer.FirstOrDefaultAsync(d => d.Id == id);
+
+            if(developerToBeDeleted == null)
+            {
+                throw new Exception("Developer not found");
+            }
+            _context.Developer.Remove(developerToBeDeleted);
+
+            await _context.SaveChangesAsync();
+
+            return;
+
         }
 
         public async Task<List<Developer>> GetAllDevelopers()
