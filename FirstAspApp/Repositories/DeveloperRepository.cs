@@ -1,6 +1,7 @@
 ﻿using FirstAspApp.Data;
 using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Repositories
 {
@@ -14,10 +15,12 @@ namespace FirstAspApp.Repositories
         }
 
 
-        public Task<Developer> AddDeveloper(Developer developer)
+        public async Task<Developer> AddDeveloper(Developer developer)
         {
+            _context.Developer.Add(developer);
+            await _context.SaveChangesAsync();
 
-            throw new NotImplementedException();
+          return developer;
         }
 
         public Task DeleteDeveloper(int id)
@@ -35,9 +38,15 @@ namespace FirstAspApp.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Developer> GetDeveloperByName(string name)
+        public async Task<Developer> GetDeveloperByName(string name)
         {
-            throw new NotImplementedException();
+            var foundDeveloper = await _context.Developer.FirstOrDefaultAsync(d => d.Name == name);
+            if(foundDeveloper == null)
+            {
+                throw new Exception("Developer not found");
+            }
+
+            return foundDeveloper;
         }
 
         public Task UpdateDeveloper(Developer developer)
