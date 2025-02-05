@@ -18,7 +18,7 @@ namespace FirstAspApp.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<Developer>> GetDevelopers()
+        public async Task<ActionResult<Developer>> GetAllDevelopers()
         {
             var developers = await _developerRepository.GetAllDevelopers();
             return Ok(developers);

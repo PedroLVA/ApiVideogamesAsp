@@ -28,9 +28,11 @@ namespace FirstAspApp.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<Developer>> GetAllDevelopers()
+        public async Task<List<Developer>> GetAllDevelopers()
         {
-            throw new NotImplementedException();
+            var developers = await _context.Developer.ToListAsync();
+
+            return developers;
         }
 
         public Task<Developer?> GetDeveloperById(int id)
