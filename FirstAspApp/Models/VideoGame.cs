@@ -6,6 +6,7 @@
         public string? Title { get; set; }
         public string? Platform { get; set; }
         public int? DeveloperId { get; set; }
+
         public Developer? Developer { get; set; }
         public int? PublisherId { get; set; }
         public Publisher? Publisher { get; set; }
