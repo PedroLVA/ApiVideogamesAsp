@@ -23,5 +23,24 @@ namespace FirstAspApp.Controllers
 
             return Ok(user);
         }
+
+        [HttpPost("login")]
+        public ActionResult<string> Login(UserDTO userDTO)
+        {
+            if(user.UserName != userDTO.UserName)
+            {
+                return BadRequest("Login failed");
+            }
+            if(new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHash, userDTO.Password) == PasswordVerificationResult.Failed)
+            {
+                return BadRequest("Login failed");
+            }
+
+            string token = "success";
+
+            return Ok(token);
+
+
+        }
     }
 }
