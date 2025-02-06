@@ -1,24 +1,41 @@
-﻿using FirstAspApp.Data;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using FirstAspApp.Data;
 using FirstAspApp.DTOs.UserDTOs;
 using FirstAspApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FirstAspApp.Services
 {
     public class AuthService : IAuthService
     {
         private readonly VideoGameDbContext _context;
-        private readonly IConfiguration  _configuration;
+        private readonly IConfiguration  configuration;
 
         public AuthService(VideoGameDbContext context, IConfiguration configuration)
         {
             _context = context;
-            _configuration = configuration;
+            this.configuration = configuration;
         }
-        public Task<string?> LoginAsync(UserDTO request)
+        public async Task<string?> LoginAsync(UserDTO request)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName);
+            if (user is null)
+            {
+                return null;
+            }
+
+            if (new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
+            {
+                return null;
+            }
+
+
+            return CreateToken(user);
         }
 
 
@@ -42,6 +59,28 @@ namespace FirstAspApp.Services
             await _context.SaveChangesAsync();
 
             return user;
+        }
+
+        private string CreateToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("AppSettings:Token")!));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
+
+            var tokenDescriptor = new JwtSecurityToken(
+                issuer: configuration.GetValue<string>("AppSettings:Issuer"),
+                audience: configuration.GetValue<string>("AppSettings:Audience"),
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds
+            );
+            return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
     }
 }
