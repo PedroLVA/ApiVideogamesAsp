@@ -4,6 +4,7 @@ using System.Text;
 using FirstAspApp.DTOs.UserDTOs;
 using FirstAspApp.Models;
 using FirstAspApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,13 @@ namespace FirstAspApp.Controllers
 
             }
 
-       
+        [Authorize]
+        [HttpGet("authenticated")]
+        public IActionResult AuthenticatedEndpoint()
+        {
+            return Ok("You are authenticated");
+        }
+
+
     }
 }
