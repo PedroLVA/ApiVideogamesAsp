@@ -1,6 +1,7 @@
 using FirstAspApp.Data;
 using FirstAspApp.Interfaces;
 using FirstAspApp.Repositories;
+using FirstAspApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -21,6 +22,9 @@ builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
 
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 var app = builder.Build();
 
