@@ -59,6 +59,13 @@ namespace FirstAspApp.Controllers
             return Ok("You are authenticated");
         }
 
+        [Authorize(Roles = "User")]
+        [HttpGet("user-only")]
+        public IActionResult UserOnlyEndpoint()
+        {
+            return Ok("You are authenticated");
+        }
+
 
     }
 }

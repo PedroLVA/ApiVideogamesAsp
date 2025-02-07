@@ -54,8 +54,9 @@ namespace FirstAspApp.Services
             user.UserName = request.UserName;
             user.Email = request.Email;
             user.PasswordHash = hashedPassword;
+            user.Role = "User";
 
-             _context.Users.Add(user);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             return user;
