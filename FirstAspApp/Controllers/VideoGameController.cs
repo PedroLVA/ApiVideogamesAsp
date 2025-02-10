@@ -51,7 +51,7 @@ namespace FirstAspApp.Controllers
         {
            var videoGame = await _videoGameRepository.AddVideoGame(newVideoGame);
 
-            return CreatedAtAction(nameof(GetVideoGame), new { id = newVideoGame.Id }, newVideoGame); //Didnt understand what's happening here
+            return CreatedAtAction(nameof(GetVideoGame), new { id = newVideoGame.Id }, newVideoGame); 
 
         }
 

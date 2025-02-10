@@ -9,7 +9,7 @@ namespace FirstAspApp.Controllers
     [ApiController]
     public class GenreController : ControllerBase
     {
-        private readonly IGenreRepository _genreRepository; //doesnt exist yet
+        private readonly IGenreRepository _genreRepository;
 
         public GenreController(IGenreRepository genreRepository)
         {
