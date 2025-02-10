@@ -6,7 +6,6 @@ using FirstAspApp.DTOs.UserDTOs;
 using FirstAspApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FirstAspApp.Services
