@@ -5,6 +5,7 @@ using FirstAspApp.Repositories;
 using FirstAspApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 
@@ -42,6 +43,8 @@ builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
 builder.Services.AddScoped<IDeveloperRepository, DeveloperRepository>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 
 var app = builder.Build();
