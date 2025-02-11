@@ -1,6 +1,7 @@
 ﻿using FirstAspApp.Data;
 using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Repositories
 {
@@ -35,17 +36,35 @@ namespace FirstAspApp.Repositories
 
         public async Task<List<Review>> GetAllReviews()
         {
-            throw new NotImplementedException();
+            return await _context.Reviews.ToListAsync();
         }
 
         public async Task<Review> GetReviewById(int id)
         {
-            throw new NotImplementedException();
+            var foundReview = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
+            if(foundReview == null)
+            {
+                throw new Exception("Review not found");
+            }
+
+            return foundReview;
         }
 
         public async Task UpdateReview(Review review)
         {
-            throw new NotImplementedException();
+            var reviewToBeUpdated = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == review.Id);
+
+            if (reviewToBeUpdated == null)
+            {
+                throw new Exception("Review not found");
+            }
+
+            reviewToBeUpdated.Rating = review.Rating;
+            reviewToBeUpdated.Comment = review.Comment;
+
+            await _context.SaveChangesAsync();
+
+            return;
         }
     }
 }
