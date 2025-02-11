@@ -10,7 +10,7 @@ namespace FirstAspApp.Data
         public DbSet<Genre> Genre => Set<Genre>();
         public DbSet<Developer> Developer => Set<Developer>();
         public DbSet<User> Users => Set<User>();
-        public DbSet<Review> reviews => Set<Review>(); 
+        public DbSet<Review> Reviews => Set<Review>(); 
 
         public DbSet<Publisher> Publisher => Set<Publisher>();
 
