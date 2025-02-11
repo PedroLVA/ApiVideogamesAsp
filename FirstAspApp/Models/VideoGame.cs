@@ -15,5 +15,7 @@
 
         public List<Genre>? Genres { get; set; }
 
+        public List<Review>? Reviews { get; set; }
+
     }
 }
