@@ -59,6 +59,18 @@ namespace FirstAspApp.Controllers
 
         }
 
+        [HttpPut]
+        public async Task<ActionResult> UpdateReview(Review review)
+        {
+            var reviewToBeUpdated = await _reviewRepository.GetReviewById(review.Id);
+            if (reviewToBeUpdated == null)
+            {
+                return BadRequest();
+            }
+            await _reviewRepository.UpdateReview(review);
+            return Ok();
+        }
+
 
     }
 }
