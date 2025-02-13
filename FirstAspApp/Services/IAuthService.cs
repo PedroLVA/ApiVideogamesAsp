@@ -9,5 +9,6 @@ namespace FirstAspApp.Services
     {
         Task<User?> RegisterAsync(UserDTO request);
         Task<TokenResponseDto?> LoginAsync(UserDTO request);
+        Task<TokenResponseDto> RefreshTokensAsync(RefreshTokenRequestDTO request);
     }
 }

@@ -22,6 +22,16 @@ namespace FirstAspApp.Services
             _context = context;
             this.configuration = configuration;
         }
+
+        public async Task<User?> ValidadeRefreshTokenAsync(int userId, string refreshToken)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user is null || user.RefreshTokenExpiryTime < DateTime.Now || user.RefreshToken != refreshToken)
+            {
+                return null;
+            }
+            return user;
+        } 
         public async Task<TokenResponseDto?> LoginAsync(UserDTO request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName);
@@ -35,16 +45,19 @@ namespace FirstAspApp.Services
                 return null;
             }
 
-            var response = new TokenResponseDto
+          
+
+            return await CreateTokenResponse(user);
+        }
+
+        private async Task<TokenResponseDto> CreateTokenResponse(User? user)
+        {
+            return new TokenResponseDto
             {
                 AccessToken = CreateToken(user),
                 RefreshToken = await GenerateAndSafeRefreshTokenAsync(user)
             };
-
-
-            return response;
         }
-
 
         public async Task<User?> RegisterAsync(UserDTO request)
         {
@@ -77,6 +90,19 @@ namespace FirstAspApp.Services
             return Convert.ToBase64String(randomNumber);
         }
 
+
+        public async Task<TokenResponseDto> RefreshTokensAsync(RefreshTokenRequestDTO request)
+        {
+            var user = await ValidadeRefreshTokenAsync(request.UserId, request.RefreshToken);
+            if (user is null)
+            {
+                return null;
+            }
+
+            return await CreateTokenResponse(user);
+        }
+
+
         private async Task<string> GenerateAndSafeRefreshTokenAsync(User user)
         {
             var refreshToken = GenerateRefreshToken();
@@ -108,5 +134,7 @@ namespace FirstAspApp.Services
             );
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
+
+       
     }
 }

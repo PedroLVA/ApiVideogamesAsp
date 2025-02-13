@@ -41,6 +41,18 @@ namespace FirstAspApp.Controllers
 
             }
 
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<TokenResponseDto>> RefreshToken(RefreshTokenRequestDTO request)
+        {
+            var result = await authService.RefreshTokensAsync(request);
+            if (result is null || result.AccessToken is null || result.RefreshToken is null)
+            {
+                return Unauthorized("Invalid Refresh token");
+            }
+            return Ok(result);
+        }
+
+
         [Authorize]
         [HttpGet("authenticated")]
         public IActionResult AuthenticatedEndpoint()
