@@ -12,6 +12,12 @@
 
         public string Role { get; set; } = string.Empty;
 
+        public string? RefreshToken { get; set; }
+
+        public DateTime? RefreshTokenExpiryTime { get; set; }
+
         public List<Review>? Reviews { get; set; }  
+
+
     }
 }
