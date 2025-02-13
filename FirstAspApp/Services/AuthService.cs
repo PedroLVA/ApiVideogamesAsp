@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using FirstAspApp.Data;
+using FirstAspApp.DTOs.Token;
 using FirstAspApp.DTOs.UserDTOs;
 using FirstAspApp.Models;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +22,7 @@ namespace FirstAspApp.Services
             _context = context;
             this.configuration = configuration;
         }
-        public async Task<string?> LoginAsync(UserDTO request)
+        public async Task<TokenResponseDto?> LoginAsync(UserDTO request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName);
             if (user is null)
@@ -34,8 +35,14 @@ namespace FirstAspApp.Services
                 return null;
             }
 
+            var response = new TokenResponseDto
+            {
+                AccessToken = CreateToken(user),
+                RefreshToken = await GenerateAndSafeRefreshTokenAsync(user)
+            };
 
-            return CreateToken(user);
+
+            return response;
         }
 
 

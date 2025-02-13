@@ -1,4 +1,5 @@
 ﻿
+using FirstAspApp.DTOs.Token;
 using FirstAspApp.DTOs.UserDTOs;
 using FirstAspApp.Models;
 using FirstAspApp.Services;
@@ -27,15 +28,15 @@ namespace FirstAspApp.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserDTO userDTO)
+        public async Task<ActionResult<TokenResponseDto>> Login(UserDTO userDTO)
         {
-            var token = await authService.LoginAsync(userDTO);
-            if (token is null)
+            var result = await authService.LoginAsync(userDTO);
+            if (result is null)
             {
                 return Unauthorized("Invalid credentials");
             }
 
-            return Ok(token);
+            return Ok(result);
 
 
             }
