@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using FirstAspApp.Data;
 using FirstAspApp.DTOs.UserDTOs;
@@ -61,7 +62,24 @@ namespace FirstAspApp.Services
             return user;
         }
 
-        private string CreateToken(User user)
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
+        }
+
+        private async Task<string> GenerateAndSafeRefreshTokenAsync(User user)
+        {
+            var refreshToken = GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+            await _context.SaveChangesAsync();
+            return refreshToken;
+        }
+
+        private string CreateToken(User user) 
         {
             var claims = new List<Claim>
             {
