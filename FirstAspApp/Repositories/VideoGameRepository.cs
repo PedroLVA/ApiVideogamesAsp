@@ -1,8 +1,6 @@
 ﻿using FirstAspApp.Data;
 using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Repositories

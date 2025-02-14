@@ -1,7 +1,6 @@
 ﻿using FirstAspApp.DTOs.Token;
 using FirstAspApp.DTOs.UserDTOs;
 using FirstAspApp.Models;
-using System.Threading.Tasks;
 
 namespace FirstAspApp.Services
 {
