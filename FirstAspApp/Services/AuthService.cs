@@ -38,7 +38,7 @@ namespace FirstAspApp.Services
             if (user is null)
             {
                 return null;
-            }
+            }   
 
             if (new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
             {
@@ -55,7 +55,7 @@ namespace FirstAspApp.Services
             return new TokenResponseDto
             {
                 AccessToken = CreateToken(user),
-                RefreshToken = await GenerateAndSafeRefreshTokenAsync(user)
+                RefreshToken = await GenerateAndSaveRefreshTokenAsync(user)
             };
         }
 
@@ -103,7 +103,7 @@ namespace FirstAspApp.Services
         }
 
 
-        private async Task<string> GenerateAndSafeRefreshTokenAsync(User user)
+        private async Task<string> GenerateAndSaveRefreshTokenAsync(User user)
         {
             var refreshToken = GenerateRefreshToken();
             user.RefreshToken = refreshToken;
