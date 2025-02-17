@@ -13,27 +13,29 @@ namespace FirstAspApp.Repositories
             _context = context;
         }
 
-        Task<Platform> IPlatformRepository.AddPlatform(Platform platform)
+        public async Task<Platform> AddPlatform(Platform platform)
+        {
+            _context.Platforms.Add(platform);
+            await _context.SaveChangesAsync();
+            return platform;
+        }
+
+        public Task DeletePlatform(int id)
         {
             throw new NotImplementedException();
         }
 
-        Task IPlatformRepository.DeletePlatform(int id)
+        public Task<List<Platform>> GetAllPlatforms()
         {
             throw new NotImplementedException();
         }
 
-        Task<List<Platform>> IPlatformRepository.GetAllPlatforms()
+        public Task<Platform?> GetPlatformById(int id)
         {
             throw new NotImplementedException();
         }
 
-        Task<Platform?> IPlatformRepository.GetPlatformById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IPlatformRepository.UpdatedePlatform(Platform platform)
+        public Task UpdatedePlatform(Platform platform)
         {
             throw new NotImplementedException();
         }
