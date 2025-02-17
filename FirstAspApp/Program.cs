@@ -46,6 +46,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
+builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
+
 
 var app = builder.Build();
 
