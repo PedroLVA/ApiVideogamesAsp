@@ -11,6 +11,7 @@ namespace FirstAspApp.Data
         public DbSet<Developer> Developer => Set<Developer>();
         public DbSet<User> Users => Set<User>();
         public DbSet<Review> Reviews => Set<Review>(); 
+        public DbSet<Platform> Platforms => Set<Platform>();
 
         public DbSet<Publisher> Publisher => Set<Publisher>();
 
