@@ -9,19 +9,19 @@ namespace FirstAspApp.DTOs.VideoGameDTOs
 
         public string? Title { get; set; }
 
-        public string? Platform { get; set; }
-
         public int? DeveloperId { get; set; }
 
         public int? PublisherId { get; set; }
 
         public List<Genre>? Genres { get; set; }
 
+        public List<Platform>? Platforms { get; set; }
+
         public VideoGameGetResponseDTO(VideoGame videoGame) {
 
             Id = videoGame.Id;
             Title = videoGame.Title;
-            Platform = videoGame.Platform;
+            Platforms = videoGame.Platforms;
             DeveloperId = videoGame.DeveloperId;
             PublisherId = videoGame.PublisherId;
             Genres = videoGame.Genres;

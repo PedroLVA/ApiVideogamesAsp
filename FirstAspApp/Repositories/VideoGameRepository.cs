@@ -52,6 +52,7 @@ namespace FirstAspApp.Repositories
                 .Include(vg => vg.Publisher)
                 .Include(vg => vg.Developer)
                 .Include(vg => vg.Genres)
+                .Include(vg => vg.Platforms)
                 .ToListAsync();
         }
 
@@ -62,6 +63,7 @@ namespace FirstAspApp.Repositories
                .Include(vg => vg.Publisher)
                .Include(vg => vg.Developer)
                .Include(vg => vg.Genres)
+               .Include(vg => vg.Platforms)
                .FirstOrDefaultAsync(vg => vg.Id == id);
 
             return VideoGame;
@@ -76,7 +78,7 @@ namespace FirstAspApp.Repositories
             }
 
             VideoGameToUpdate.Title = videoGame.Title;
-            VideoGameToUpdate.Platform = videoGame.Platform;
+            VideoGameToUpdate.Platforms = videoGame.Platforms;
             VideoGameToUpdate.DeveloperId = videoGame.DeveloperId;
             VideoGameToUpdate.PublisherId = videoGame.PublisherId;
 
