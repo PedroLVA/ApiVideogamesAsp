@@ -17,5 +17,7 @@
 
         public List<Review>? Reviews { get; set; }
 
+        public List<Platform>? Platforms { get; set; }
+
     }
 }
