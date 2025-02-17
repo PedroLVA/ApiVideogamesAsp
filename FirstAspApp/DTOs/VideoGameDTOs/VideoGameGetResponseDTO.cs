@@ -15,13 +15,13 @@ namespace FirstAspApp.DTOs.VideoGameDTOs
 
         public List<Genre>? Genres { get; set; }
 
-        public List<Platform>? Platforms { get; set; }
+        public List<String>? PlatformNames { get; set; }
 
         public VideoGameGetResponseDTO(VideoGame videoGame) {
 
             Id = videoGame.Id;
             Title = videoGame.Title;
-            Platforms = videoGame.Platforms;
+            PlatformNames = videoGame.Platforms?.Select(p => p.Name).ToList() ?? new List<string>();
             DeveloperId = videoGame.DeveloperId;
             PublisherId = videoGame.PublisherId;
             Genres = videoGame.Genres;
