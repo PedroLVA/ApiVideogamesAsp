@@ -18,7 +18,10 @@ namespace FirstAspApp.Repositories
 
         public async Task AddPlatformToVideoGame(int videoGameId, int platformId)
         {
-            var foundVideoGame = await _context.VideoGames.FindAsync(videoGameId);
+            var foundVideoGame = await _context.VideoGames
+         .Include(vg => vg.Platforms) 
+         .FirstOrDefaultAsync(vg => vg.Id == videoGameId);
+
             var foundPlatform = await _context.Platforms.FindAsync(platformId);
 
             if(foundVideoGame == null || foundPlatform == null)
@@ -26,7 +29,15 @@ namespace FirstAspApp.Repositories
                 throw new Exception("VideoGame or Platform not found");
             }
 
+            if(foundVideoGame.Platforms.Any(p => p.Id == platformId))
+            {
+                throw new Exception("Platform already registered in the specified VideoGame");
+            }
+
+
             foundVideoGame.Platforms.Add(foundPlatform);
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<VideoGame> AddVideoGame(VideoGame videoGame)

@@ -20,6 +20,13 @@ namespace FirstAspApp.Controllers
             _videoGameRepository = videoGameRepository;
         }
 
+        [HttpPost("{videoGameId}/platforms/{platformId}")]
+        public async Task<IActionResult> AddPlatformToVideoGame(int videoGameId, int platformId)
+        {
+            await _videoGameRepository.AddPlatformToVideoGame(videoGameId, platformId);
+            return NoContent();
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<VideoGameGetResponseDTO>>> GetVideoGames()
         {
