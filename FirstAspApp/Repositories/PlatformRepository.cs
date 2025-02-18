@@ -50,7 +50,7 @@ namespace FirstAspApp.Repositories
             return foundPlatform;
         }
 
-        public async Task UpdatedePlatform(Platform platform)
+        public async Task UpdatePlatform(Platform platform)
         {
             var foundPlatform = await _context.Platforms.FindAsync(platform.Id);
 

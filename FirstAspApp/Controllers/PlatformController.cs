@@ -64,5 +64,12 @@ namespace FirstAspApp.Controllers
             }
             return Ok(foundPlatform);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdatePlatform(Platform platform)
+        {
+           await platformRepository.UpdatePlatform(platform);
+            return NoContent();
+        }
     }
 }
