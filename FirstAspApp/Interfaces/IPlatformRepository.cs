@@ -8,6 +8,6 @@ namespace FirstAspApp.Interfaces
         Task<Platform?> GetPlatformById(int id);
         Task<Platform> AddPlatform(Platform platform);
         Task DeletePlatform(int id);
-        Task UpdatedePlatform(Platform platform);
+        Task UpdatePlatform(Platform platform);
     }
 }
