@@ -42,5 +42,16 @@ namespace FirstAspApp.Controllers
             await platformRepository.DeletePlatform(id);
             return Ok("Platform deleted");
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Platform>> GetPlatformById(int id)
+        {
+            var foundPlatform = await platformRepository.GetPlatformById(id);
+            if(foundPlatform == null)
+            {
+                return NotFound("Platform not found");
+            }
+            return Ok(foundPlatform);
+        }
     }
 }
