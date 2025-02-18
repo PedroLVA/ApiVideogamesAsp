@@ -50,9 +50,21 @@ namespace FirstAspApp.Repositories
             return foundPlatform;
         }
 
-        public Task UpdatedePlatform(Platform platform)
+        public async Task UpdatedePlatform(Platform platform)
         {
-            throw new NotImplementedException();
+            var foundPlatform = await _context.Platforms.FindAsync(platform.Id);
+
+            if(foundPlatform == null)
+            {
+                throw new Exception("Platform not found");
+            }
+
+            foundPlatform.Name = platform.Name;
+            foundPlatform.Company = platform.Company;
+
+            await _context.SaveChangesAsync();
+
+            return;
         }
     }
 }
