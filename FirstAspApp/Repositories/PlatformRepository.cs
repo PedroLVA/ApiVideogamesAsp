@@ -20,9 +20,18 @@ namespace FirstAspApp.Repositories
             return platform;
         }
 
-        public Task DeletePlatform(int id)
+        public async Task DeletePlatform(int id)
         {
-            throw new NotImplementedException();
+            var foundPlatform = await _context.Platforms.FindAsync(id);
+
+            if(foundPlatform == null)
+            {
+                throw new Exception("Platform not found");
+            }
+
+            _context.Platforms.Remove(foundPlatform);
+
+            await _context.SaveChangesAsync();
         }
 
         public Task<List<Platform>> GetAllPlatforms()
