@@ -16,6 +16,18 @@ namespace FirstAspApp.Repositories
             _context = context;
         }
 
+        public async Task AddPlatformToVideoGame(int videoGameId, int platformId)
+        {
+            var foundVideoGame = await _context.VideoGames.FindAsync(videoGameId);
+            var foundPlatform = await _context.Platforms.FindAsync(platformId);
+
+            if(foundVideoGame == null || foundPlatform == null)
+            {
+                throw new Exception("VideoGame or Platform not found");
+            }
+
+            foundVideoGame.Platforms.Add(foundPlatform);
+        }
 
         public async Task<VideoGame> AddVideoGame(VideoGame videoGame)
         {

@@ -15,6 +15,8 @@ namespace FirstAspApp.Interfaces
 
         Task DeleteVideoGame(int id);
 
+        Task AddPlatformToVideoGame(int videoGameId, int platformId);
+
 
     }
 }
