@@ -1,6 +1,7 @@
 ﻿using FirstAspApp.Data;
 using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Repositories
 {
@@ -34,9 +35,9 @@ namespace FirstAspApp.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<List<Platform>> GetAllPlatforms()
+        public async Task<List<Platform>> GetAllPlatforms()
         {
-            throw new NotImplementedException();
+            return await _context.Platforms.ToListAsync();
         }
 
         public async Task<Platform?> GetPlatformById(int id)
