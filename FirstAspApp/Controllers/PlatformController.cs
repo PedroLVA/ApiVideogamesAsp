@@ -16,6 +16,18 @@ namespace FirstAspApp.Controllers
             this.platformRepository = platformRepository;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Platform>>> GetAllPlatforms()
+        {
+            var platforms = await platformRepository.GetAllPlatforms();
+            if(platforms.Count == 0)
+            {
+                return NotFound("No platforms found");
+            }
+
+            return Ok(platforms);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Platform>> AddPlatform(Platform platform)
         {
@@ -27,7 +39,6 @@ namespace FirstAspApp.Controllers
                 }
 
             return Ok(newPlatform);
-
 
         }
 
