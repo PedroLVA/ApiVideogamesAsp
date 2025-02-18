@@ -39,9 +39,14 @@ namespace FirstAspApp.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Platform?> GetPlatformById(int id)
+        public async Task<Platform?> GetPlatformById(int id)
         {
-            throw new NotImplementedException();
+            var foundPlatform = await _context.Platforms.FindAsync(id);
+            if (foundPlatform == null)
+            {
+                return null;
+            }
+            return foundPlatform;
         }
 
         public Task UpdatedePlatform(Platform platform)
