@@ -1,4 +1,5 @@
-﻿using FirstAspApp.Data;
+﻿using System;
+using FirstAspApp.Data;
 using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,11 @@ namespace FirstAspApp.Repositories
             if(foundVideoGame.Genres.Count() == 0)
             {
                 foundVideoGame.Genres = new List<Genre>();
+            }
+
+            if (foundVideoGame.Genres.Any(g => g.Id == genreId))
+            {
+                throw new Exception("Genre already registered in the specified VideoGame");
             }
 
             foundVideoGame.Genres.Add(foundGenre);
