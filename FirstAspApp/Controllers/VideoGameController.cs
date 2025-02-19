@@ -27,6 +27,19 @@ namespace FirstAspApp.Controllers
             return NoContent();
         }
 
+        [HttpGet("genre/{genreName}")]
+        public async Task<ActionResult<List<VideoGame>>> GetVideoGamesByGenre(string genreName)
+        {
+            var videoGames = await _videoGameRepository.GetVideoGamesByGenre(genreName);
+            if(videoGames == null)
+            {
+                return NotFound("No VideoGames found for this genre");
+            }
+
+            var videoGameDTOs = videoGames.Select(vg => new VideoGameGetResponseDTO(vg)).ToList();
+            return Ok(videoGameDTOs);
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<VideoGameGetResponseDTO>>> GetVideoGames()
         {

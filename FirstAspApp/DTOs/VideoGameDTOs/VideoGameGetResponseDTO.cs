@@ -1,4 +1,5 @@
-﻿using FirstAspApp.Models;
+﻿using FirstAspApp.DTOs.GenreDTOs;
+using FirstAspApp.Models;
 
 namespace FirstAspApp.DTOs.VideoGameDTOs
 {
@@ -13,7 +14,7 @@ namespace FirstAspApp.DTOs.VideoGameDTOs
 
         public int? PublisherId { get; set; }
 
-        public List<Genre>? Genres { get; set; }
+        public List<GenreDTO>? Genres { get; set; }
 
         public List<String>? PlatformNames { get; set; }
 
@@ -24,7 +25,7 @@ namespace FirstAspApp.DTOs.VideoGameDTOs
             PlatformNames = videoGame.Platforms?.Select(p => p.Name).ToList() ?? new List<string>();
             DeveloperId = videoGame.DeveloperId;
             PublisherId = videoGame.PublisherId;
-            Genres = videoGame.Genres;
+            Genres = videoGame.Genres?.Select(g => new GenreDTO(g)).ToList();
         }
 
     }

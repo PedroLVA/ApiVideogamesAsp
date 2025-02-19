@@ -98,6 +98,14 @@ namespace FirstAspApp.Repositories
             return VideoGame;
         }
 
+        public async Task<List<VideoGame>> GetVideoGamesByGenre(string genreName)
+        {
+            var listOfVideoGames = await _context.VideoGames.Where(vg => vg.Genres.Any(g => g.Name == genreName)).Include(vg => vg.Genres).ToListAsync();
+
+
+            return listOfVideoGames;
+        }
+
         public async Task UpdateVideoGame(VideoGame videoGame)
         {
             var VideoGameToUpdate = await _context.VideoGames.FindAsync(videoGame.Id);
