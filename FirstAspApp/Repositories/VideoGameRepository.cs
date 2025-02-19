@@ -29,7 +29,13 @@ namespace FirstAspApp.Repositories
                 throw new Exception("VideoGame or Platform not found");
             }
 
-            if(foundVideoGame.Platforms.Any(p => p.Id == platformId))
+            if (foundVideoGame.Platforms == null) 
+            {
+                foundVideoGame.Platforms = new List<Platform>();
+            }
+
+
+            if (foundVideoGame.Platforms.Any(p => p.Id == platformId))
             {
                 throw new Exception("Platform already registered in the specified VideoGame");
             }
