@@ -16,6 +16,26 @@ namespace FirstAspApp.Repositories
             _context = context;
         }
 
+        public async Task AddGenreToVideoGame(int genreId, int videoGameId)
+        {
+            var foundVideoGame = await _context.VideoGames.Include(vg => vg.Genres).FirstOrDefaultAsync(vg => vg.Id == videoGameId);
+            var foundGenre = await _context.Genre.FindAsync(genreId);
+
+            if (foundGenre == null || foundVideoGame == null)
+            {
+                throw new Exception("Videogame or Genre not found");
+            }
+
+            if(foundVideoGame.Genres.Count() == 0)
+            {
+                foundVideoGame.Genres = new List<Genre>();
+            }
+
+            foundVideoGame.Genres.Add(foundGenre);
+            await _context.SaveChangesAsync();
+            return;
+        }
+
         public async Task AddPlatformToVideoGame(int videoGameId, int platformId)
         {
             var foundVideoGame = await _context.VideoGames

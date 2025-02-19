@@ -19,5 +19,7 @@ namespace FirstAspApp.Interfaces
 
         Task<List<VideoGame>> GetVideoGamesByGenre(string genreName);
 
+        Task AddGenreToVideoGame(int genreId, int videoGameId);
+
     }
 }

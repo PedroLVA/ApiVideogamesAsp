@@ -12,7 +12,7 @@ namespace FirstAspApp.Controllers
     public class VideoGameController : ControllerBase
     {
 
-    
+
         private readonly IVideoGameRepository _videoGameRepository;
 
         public VideoGameController(IVideoGameRepository videoGameRepository)
@@ -25,6 +25,15 @@ namespace FirstAspApp.Controllers
         {
             await _videoGameRepository.AddPlatformToVideoGame(videoGameId, platformId);
             return NoContent();
+        }
+
+        [HttpPost("{videoGameId}/genre/{genreId}")]
+        public async Task<ActionResult> AddGenreToVideoGame(int genreId, int videoGameId)
+        {
+            await _videoGameRepository.AddGenreToVideoGame(genreId, videoGameId);
+
+            return NoContent();
+
         }
 
         [HttpGet("genre/{genreName}")]
