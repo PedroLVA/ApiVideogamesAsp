@@ -1,4 +1,5 @@
-﻿using FirstAspApp.Models;
+﻿using FirstAspApp.DTOs.VideoGameDTOs;
+using FirstAspApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstAspApp.Interfaces
@@ -9,7 +10,7 @@ namespace FirstAspApp.Interfaces
 
         Task<VideoGame?> GetVideoGameById(int id);
 
-        Task<VideoGame> AddVideoGame(VideoGame videoGame);
+        Task<VideoGame> AddVideoGame(VideoGamePostDTO videoGameDTO);
 
         Task UpdateVideoGame(VideoGame videoGame);
 

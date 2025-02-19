@@ -12,7 +12,6 @@ namespace FirstAspApp.Controllers
     public class VideoGameController : ControllerBase
     {
 
-
         private readonly IVideoGameRepository _videoGameRepository;
 
         public VideoGameController(IVideoGameRepository videoGameRepository)
@@ -76,11 +75,18 @@ namespace FirstAspApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<VideoGame>> CreateVideoGame(VideoGame newVideoGame)
+        public async Task<ActionResult<VideoGame>> CreateVideoGame(VideoGamePostDTO videoGameDto)
         {
-           var videoGame = await _videoGameRepository.AddVideoGame(newVideoGame);
+            try
+            {
+                var newVideoGame = await _videoGameRepository.AddVideoGame(videoGameDto);
+                return CreatedAtAction(nameof(GetVideoGame), new { id = newVideoGame.Id }, newVideoGame);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
-            return CreatedAtAction(nameof(GetVideoGame), new { id = newVideoGame.Id }, newVideoGame); 
 
         }
 

@@ -36,7 +36,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Developer");
+                    b.ToTable("Developer", (string)null);
                 });
 
             modelBuilder.Entity("FirstAspApp.Models.Genre", b =>
@@ -53,7 +53,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genre", (string)null);
                 });
 
             modelBuilder.Entity("FirstAspApp.Models.Platform", b =>
@@ -74,7 +74,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Platforms");
+                    b.ToTable("Platforms", (string)null);
                 });
 
             modelBuilder.Entity("FirstAspApp.Models.Publisher", b =>
@@ -91,7 +91,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publisher");
+                    b.ToTable("Publisher", (string)null);
                 });
 
             modelBuilder.Entity("FirstAspApp.Models.Review", b =>
@@ -123,7 +123,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasIndex("VideoGameId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("FirstAspApp.Models.User", b =>
@@ -158,7 +158,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("FirstAspApp.Models.VideoGame", b =>
@@ -187,7 +187,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("VideoGames");
+                    b.ToTable("VideoGames", (string)null);
 
                     b.HasData(
                         new
@@ -243,7 +243,7 @@ namespace FirstAspApp.Migrations
                     b.HasIndex("VideoGameId")
                         .IsUnique();
 
-                    b.ToTable("VideoGamesDetails");
+                    b.ToTable("VideoGamesDetails", (string)null);
                 });
 
             modelBuilder.Entity("GenreVideoGame", b =>
@@ -258,7 +258,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasIndex("ListOfVideogamesId");
 
-                    b.ToTable("GenreVideoGame");
+                    b.ToTable("GenreVideoGame", (string)null);
                 });
 
             modelBuilder.Entity("PlatformVideoGame", b =>
@@ -273,7 +273,7 @@ namespace FirstAspApp.Migrations
 
                     b.HasIndex("VideoGamesId");
 
-                    b.ToTable("PlatformVideoGame");
+                    b.ToTable("PlatformVideoGame", (string)null);
                 });
 
             modelBuilder.Entity("FirstAspApp.Models.Review", b =>

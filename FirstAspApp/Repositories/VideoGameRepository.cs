@@ -1,7 +1,9 @@
 ﻿using System;
 using FirstAspApp.Data;
+using FirstAspApp.DTOs.VideoGameDTOs;
 using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Repositories
@@ -27,7 +29,7 @@ namespace FirstAspApp.Repositories
                 throw new Exception("Videogame or Genre not found");
             }
 
-            if(foundVideoGame.Genres.Count() == 0)
+            if(foundVideoGame.Genres.Count == 0)
             {
                 foundVideoGame.Genres = new List<Genre>();
             }
@@ -72,14 +74,62 @@ namespace FirstAspApp.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<VideoGame> AddVideoGame(VideoGame videoGame)
+        public async Task<VideoGame> AddVideoGame(VideoGamePostDTO videoGameDto)
         {
+            // Validate Developer
+            var developer = await _context.Developer.FindAsync(videoGameDto.DeveloperId);
+            if (developer == null)
+            {
+                throw new Exception("Developer not found.");
+            }
 
+            // Validate Publisher
+            var publisher = await _context.Publisher.FindAsync(videoGameDto.PublisherId);
+            if (publisher == null)
+            {
+                throw new Exception("Publisher not found.");
+            }
+
+            // Fetch existing Genres
+            var existingGenres = await _context.Genre
+                .Where(g => videoGameDto.GenreIds.Contains(g.Id))
+                .ToListAsync();
+
+            if (existingGenres.Count != videoGameDto.GenreIds.Count)
+            {
+                throw new Exception("One or more Genre IDs are invalid.");
+            }
+
+            // Fetch existing Platforms
+            var existingPlatforms = await _context.Platforms
+                .Where(p => videoGameDto.PlatformIds.Contains(p.Id))
+                .ToListAsync();
+
+            if (existingPlatforms.Count != videoGameDto.PlatformIds.Count)
+            {
+                throw new Exception("One or more Platform IDs are invalid.");
+            }
+
+            // Create the VideoGame entity
+            var videoGame = new VideoGame
+            {
+                Title = videoGameDto.Title,
+                DeveloperId = videoGameDto.DeveloperId,
+                PublisherId = videoGameDto.PublisherId,
+                Genres = existingGenres,
+                Platforms = existingPlatforms,
+                VideoGameDetails = new VideoGameDetails
+                {
+                    Description = videoGameDto.Description,
+                    ReleaseDate = (DateTime)videoGameDto.ReleaseDate
+                }
+            };
+
+            // Save the new game
             _context.VideoGames.Add(videoGame);
             await _context.SaveChangesAsync();
 
             return videoGame;
-
         }
 
         public async Task DeleteVideoGame(int id)
@@ -127,8 +177,7 @@ namespace FirstAspApp.Repositories
         public async Task<List<VideoGame>> GetVideoGamesByGenre(string genreName)
         {
             var listOfVideoGames = await _context.VideoGames.Where(vg => vg.Genres.Any(g => g.Name == genreName)).Include(vg => vg.Genres).ToListAsync();
-
-
+            
             return listOfVideoGames;
         }
 
