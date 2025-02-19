@@ -26,34 +26,61 @@ namespace FirstAspApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Developer>> GetDeveloper(int id)
         {
-            var foundDeveloper = await _developerRepository.GetDeveloperById(id);
-            return Ok(foundDeveloper);
+            try
+            {
+                var foundDeveloper = await _developerRepository.GetDeveloperById(id);
+                return Ok(foundDeveloper);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+           
         }
 
         [HttpPost]
         public async Task<ActionResult<Developer>> AddDeveloper(Developer developer)
         {
-            if (await _developerRepository.GetDeveloperByName(developer.Name) != null)
+            try
             {
-                return BadRequest("Developer with that name already exists");
+                var addedDeveloper = await _developerRepository.AddDeveloper(developer);
+                return Ok(addedDeveloper);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
-            var addedDeveloper = await _developerRepository.AddDeveloper(developer);
-            return Ok(addedDeveloper);
+
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteDeveloper(int id)
         {
-            await _developerRepository.DeleteDeveloper(id);
-            return Ok("Deleted developer with Id " + id + " successfully!");
+            try
+            {
+                await _developerRepository.DeleteDeveloper(id);
+                return Ok("Deleted developer with Id " + id + " successfully!");
+            }
+            catch(Exception ex) { 
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpPut]
         public async Task<ActionResult> UpdateDeveloper(Developer developer)
         {
-            await _developerRepository.UpdateDeveloper(developer);
-            return Ok("Updated developer with Id " + developer.Id + " successfully!");
+            try
+            {
+                await _developerRepository.UpdateDeveloper(developer);
+                return Ok("Updated developer with Id " + developer.Id + " successfully!");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

@@ -46,9 +46,13 @@ namespace FirstAspApp.Repositories
             return developers;
         }
 
-        public Task<Developer?> GetDeveloperById(int id)
+        public async Task<Developer?> GetDeveloperById(int id)
         {
-            var foundDeveloper = _context.Developer.FirstOrDefaultAsync(d => d.Id == id);
+            var foundDeveloper = await _context.Developer.FirstOrDefaultAsync(d => d.Id == id);
+            if(foundDeveloper == null)
+            {
+                throw new Exception("Developer not found");
+            }
 
             return foundDeveloper;
         }
