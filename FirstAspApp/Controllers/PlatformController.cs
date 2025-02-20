@@ -19,13 +19,16 @@ namespace FirstAspApp.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Platform>>> GetAllPlatforms()
         {
-            var platforms = await platformRepository.GetAllPlatforms();
-            if(platforms.Count == 0)
+            try
             {
-                return NotFound("No platforms found");
+
+                var platforms = await platformRepository.GetAllPlatforms();
+                return Ok(platforms);
+            }
+            catch (Exception ex) {
+                return NotFound(ex.Message);
             }
 
-            return Ok(platforms);
         }
 
         [HttpPost]
