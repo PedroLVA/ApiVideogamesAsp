@@ -18,6 +18,8 @@ namespace FirstAspApp.DTOs.VideoGameDTOs
 
         public List<String>? PlatformNames { get; set; }
 
+        public List<Review>? Reviews { get; set; }
+
         public VideoGameGetResponseDTO(VideoGame videoGame) {
 
             Id = videoGame.Id;
@@ -25,6 +27,7 @@ namespace FirstAspApp.DTOs.VideoGameDTOs
             PlatformNames = videoGame.Platforms?.Select(p => p.Name).ToList() ?? new List<string>();
             DeveloperId = videoGame.DeveloperId;
             PublisherId = videoGame.PublisherId;
+            Reviews = videoGame.Reviews;
             Genres = videoGame.Genres?.Select(g => new GenreDTO(g)).ToList();
         }
 

@@ -159,6 +159,7 @@ namespace FirstAspApp.Repositories
                 .Include(vg => vg.Developer)
                 .Include(vg => vg.Genres)
                 .Include(vg => vg.Platforms)
+                .Include(vg => vg.Reviews)
                 .ToListAsync();
         }
 
@@ -170,6 +171,7 @@ namespace FirstAspApp.Repositories
                .Include(vg => vg.Developer)
                .Include(vg => vg.Genres)
                .Include(vg => vg.Platforms)
+               .Include(vg => vg.Reviews)
                .FirstOrDefaultAsync(vg => vg.Id == id);
 
             return VideoGame;
