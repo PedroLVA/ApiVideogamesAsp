@@ -14,13 +14,26 @@ namespace FirstAspApp.Repositories
             _context = context;
         }
 
+
         public async Task<Review> AddReview(Review review)
         {
-            _context.Reviews.Add(review);
+            var foundGame = await _context.VideoGames.Include(vg => vg.Reviews).FirstOrDefaultAsync(vg => vg.Id == review.VideoGameId);
 
+            if (foundGame == null)
+            {
+                throw new Exception("Game not found");
+            }
+
+            if (foundGame.Reviews.Count == 0)
+            {
+                foundGame.Reviews = new List<Review>(); 
+            }
+
+            foundGame.Reviews.Add(review);
             await _context.SaveChangesAsync();
-
             return review;
+
+
         }
 
         public async Task DeleteReview(int id)

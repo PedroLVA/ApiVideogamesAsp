@@ -22,5 +22,6 @@ namespace FirstAspApp.Interfaces
 
         Task AddGenreToVideoGame(int genreId, int videoGameId);
 
+
     }
 }

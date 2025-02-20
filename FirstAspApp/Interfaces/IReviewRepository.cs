@@ -6,8 +6,8 @@ namespace FirstAspApp.Interfaces
     {
         Task<List<Review>> GetAllReviews();
         Task<Review> GetReviewById(int id);
-        Task<Review> AddReview(Review review);
         Task DeleteReview(int id);
         Task UpdateReview(Review review);
+        Task<Review> AddReview(Review review);
     }
 }

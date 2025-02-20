@@ -15,6 +15,20 @@ namespace FirstAspApp.Controllers
             _reviewRepository = reviewRepository;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Review>> addReview(Review review, int gameId)
+        {
+            try
+            {
+                await _reviewRepository.AddReview(review);
+                return Ok(review);
+            }
+            catch(Exception ex) { 
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Review>>> GetAllReviews()
         {
@@ -35,11 +49,6 @@ namespace FirstAspApp.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Review>> AddReview(Review review)
-        {
-            return await _reviewRepository.AddReview(review);
-        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteReview(int id)
