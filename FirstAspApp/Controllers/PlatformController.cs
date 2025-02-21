@@ -1,6 +1,5 @@
 ﻿using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstAspApp.Controllers
