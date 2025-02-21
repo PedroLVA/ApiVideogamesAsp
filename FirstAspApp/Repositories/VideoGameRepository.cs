@@ -3,7 +3,6 @@ using FirstAspApp.Data;
 using FirstAspApp.DTOs.VideoGameDTOs;
 using FirstAspApp.Interfaces;
 using FirstAspApp.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FirstAspApp.Repositories
