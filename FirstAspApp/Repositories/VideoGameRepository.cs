@@ -76,21 +76,21 @@ namespace FirstAspApp.Repositories
 
         public async Task<VideoGame> AddVideoGame(VideoGamePostDTO videoGameDto)
         {
-            // Validate Developer
+            
             var developer = await _context.Developer.FindAsync(videoGameDto.DeveloperId);
             if (developer == null)
             {
                 throw new Exception("Developer not found.");
             }
 
-            // Validate Publisher
+            
             var publisher = await _context.Publisher.FindAsync(videoGameDto.PublisherId);
             if (publisher == null)
             {
                 throw new Exception("Publisher not found.");
             }
 
-            // Fetch existing Genres
+            
             var existingGenres = await _context.Genre
                 .Where(g => videoGameDto.GenreIds.Contains(g.Id))
                 .ToListAsync();
@@ -100,7 +100,7 @@ namespace FirstAspApp.Repositories
                 throw new Exception("One or more Genre IDs are invalid.");
             }
 
-            // Fetch existing Platforms
+            
             var existingPlatforms = await _context.Platforms
                 .Where(p => videoGameDto.PlatformIds.Contains(p.Id))
                 .ToListAsync();
@@ -110,7 +110,7 @@ namespace FirstAspApp.Repositories
                 throw new Exception("One or more Platform IDs are invalid.");
             }
 
-            // Create the VideoGame entity
+          
             var videoGame = new VideoGame
             {
                 Title = videoGameDto.Title,
@@ -125,7 +125,7 @@ namespace FirstAspApp.Repositories
                 }
             };
 
-            // Save the new game
+            
             _context.VideoGames.Add(videoGame);
             await _context.SaveChangesAsync();
 
