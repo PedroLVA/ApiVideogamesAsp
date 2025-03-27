@@ -59,6 +59,3 @@ dotnet ef database update
 # Executar a aplicação
 dotnet run
 ```
-
-## 📄 Licença
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
